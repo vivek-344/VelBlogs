@@ -198,6 +198,7 @@
 
                 console.log(jsonData);
 
+                form.querySelectorAll("input, textarea, select, button").forEach(t => t.setAttribute("disabled", ""));
                 fetch('/send_mail', {
                     method: 'POST',
                     headers: {
@@ -213,8 +214,6 @@
                     console.log("Success: ", data);
                     const successMessage = form.querySelector("#submitSuccessMessage");
                     if (successMessage) successMessage.classList.remove("d-none");
-
-                    form.querySelectorAll("input, textarea, select, button").forEach(t => t.setAttribute("disabled", ""));
                 })
                 .catch(error => {
                     console.error(error);
