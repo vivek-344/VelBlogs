@@ -18,6 +18,11 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 
 
 load_dotenv()
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
+SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+
+
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.config['SECRET_KEY'] = 'SOME_KEY'
@@ -42,13 +47,9 @@ def inject_gravatar_url():
     return dict(gravatar_url=gravatar_url)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
-
-
-EMAIL = os.getenv("EMAIL")
-PASSWORD = os.getenv("PASSWORD")
 
 
 class User(UserMixin, db.Model):
